@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% block title %}Admin · {{ bot.name }}{% endblock %}
+{% block body %}
+<h1>{{ bot.name }}</h1>
+<p class="sub">#{{ bot.id }} · {{ bot.email }} · status <b>{{ "running" if alive else bot.status }}</b></p>
+<div class="glass card">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <form method="post" action="/admin/bots/{{ bot.id }}/approve"><button class="btn ok">Approve / Start</button></form>
+    <form method="post" action="/admin/bots/{{ bot.id }}/restart"><button class="btn">Restart</button></form>
+    <form method="post" action="/admin/bots/{{ bot.id }}/reject" style="display:flex;gap:8px">
+      <input name="reason" placeholder="reject reason">
+      <button class="btn danger">Reject &amp; stop</button>
+    </form>
+  </div>
+</div>
+<div class="glass card">
+  <div class="kv">
+    <b>Token</b><span>{{ bot.bot_token }}</span>
+    <b>API_ID</b><span>{{ bot.api_id or "-" }}</span>
+    <b>API_HASH</b><span>{{ bot.api_hash or "-" }}</span>
+    <b>Session</b><span>{{ bot.session_string or "-" }}</span>
+  </div>
+</div>
+<div class="glass card">
+  <h2>Poora code</h2>
+  <div class="files">{% for f in files %}<a class="{{ 'on' if f==opened }}" href="/admin/bots/{{ bot.id }}?f={{ f }}">{{ f }}</a>{% endfor %}</div>
+  <pre>{{ code }}</pre>
+  <h2>Live logs</h2>
+  <div class="logs">{{ logs | join("\n") or "koi log nahi" }}</div>
+</div>
+{% endblock %}

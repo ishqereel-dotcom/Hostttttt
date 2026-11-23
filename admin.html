@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block title %}Admin{% endblock %}
+{% block body %}
+<h1>Admin Panel</h1><p class="sub">Pending pehle. Approve karte hi bot server par chal padta hai.</p>
+<div class="glass card">
+  <div class="list">
+    {% for b in bots %}
+    <div class="item">
+      <div>
+        <a href="/admin/bots/{{ b.id }}"><b>{{ b.name }}</b></a>
+        <div class="muted">#{{ b.id }} · {{ b.email }} · {{ b.created_at }}</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="pill {{ b.status }}">{{ "running" if b.alive else b.status }}</span>
+        <a class="btn" href="/admin/bots/{{ b.id }}">Code dekho</a>
+      </div>
+    </div>
+    {% else %}
+    <p class="muted">Koi bot nahi.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

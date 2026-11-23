@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% block title %}{{ bot.name }}{% endblock %}
+{% block body %}
+<h1>{{ bot.name }}</h1>
+<p class="sub">#{{ bot.id }} · status <b>{{ "running" if alive else bot.status }}</b></p>
+{% if bot.reject_reason %}<div class="err">Reject: {{ bot.reject_reason }}</div>{% endif %}
+<div class="glass card">
+  <div class="kv">
+    <b>File</b><span>{{ bot.filename }}</span>
+    <b>Entry</b><span>{{ bot.entry_file }}</span>
+    <b>Bana</b><span>{{ bot.created_at }}</span>
+    <b>Update</b><span>{{ bot.updated_at }}</span>
+  </div>
+</div>
+<div class="glass card">
+  <h2>Files</h2>
+  <div class="files">{% for f in files %}<a href="#">{{ f }}</a>{% endfor %}</div>
+  <h2>Logs</h2>
+  <div class="logs">{{ logs | join("\n") or "abhi koi log nahi" }}</div>
+</div>
+{% if alive %}
+<form method="post" action="/bots/{{ bot.id }}/stop"><button class="btn danger">Stop</button></form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block body %}
+<div class="glass card center">
+  <h1>Login</h1><p class="sub">Bot chalane ke liye andar aao.</p>
+  {% if err %}<div class="err">{{ err }}</div>{% endif %}
+  <form method="post" action="/login">
+    <label>Email</label><input name="email" type="text" required autofocus>
+    <label>Password</label><input name="password" type="password" required>
+    <div style="margin-top:18px"><button class="btn primary" type="submit">Login</button></div>
+  </form>
+  <p class="muted" style="margin-top:14px">Account nahi? <a href="/register" style="text-decoration:underline">Register</a></p>
+</div>
+{% endblock %}

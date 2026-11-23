@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block body %}
+<h1>Mere Bots</h1><p class="sub">Status sirf admin approve karne ke baad "running" hota hai.</p>
+<div class="glass card">
+  {% if bots %}
+  <div class="list">
+    {% for b in bots %}
+    <div class="item">
+      <div>
+        <a href="/bots/{{ b.id }}"><b>{{ b.name }}</b></a>
+        <div class="muted">#{{ b.id }} · entry: {{ b.entry_file }} · {{ b.created_at }}</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="pill {{ b.status }}">{{ "running" if b.alive else b.status }}</span>
+        <a class="btn" href="/bots/{{ b.id }}">Kholo</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="muted">Abhi koi bot nahi. <a href="/bots/new" style="text-decoration:underline">Pehla bot upload karo</a>.</p>
+  {% endif %}
+</div>
+{% endblock %}
